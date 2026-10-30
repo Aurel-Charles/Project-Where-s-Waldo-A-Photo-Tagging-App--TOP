@@ -1,0 +1,15 @@
+.imageBox{
+    position:relative;
+}
+
+.image{
+    width: 100%;
+}
+
+.box{
+    position: absolute;
+    width: 4%;
+    height: 4%;
+    border: solid red 3px;
+    transform: translate(-50%, -50%);
+}
