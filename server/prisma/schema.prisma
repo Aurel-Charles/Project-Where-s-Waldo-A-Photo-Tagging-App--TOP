@@ -11,3 +11,48 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Picture {
+  id Int @id @default(autoincrement())
+  title String
+  url String
+  positions CharacterPosition[]
+  games Game[]
+}
+
+model Character {
+  id Int @id @default(autoincrement())
+  name String
+  positions CharacterPosition[]
+  games FoundCharacter[]
+}
+
+model CharacterPosition {
+  picture Picture @relation(fields: [pictureId], references: [id])
+  pictureId Int
+  character Character @relation(fields: [characterId], references: [id])
+  characterId Int
+  x Float
+  y Float
+  @@id([pictureId,characterId])
+}
+
+model Game {
+  id Int @id @default(autoincrement())
+  picture Picture @relation(fields: [pictureId], references: [id])
+  pictureId Int
+  start DateTime @default(now())
+  end DateTime?
+  duration Int?
+  player String?
+  characters FoundCharacter[]
+}
+
+model FoundCharacter {
+  game Game @relation(fields: [gameId], references: [id]) 
+  gameId Int
+  character Character @relation(fields: [characterId], references: [id])
+  characterId Int
+  foundAt DateTime @default(now())
+  @@id([gameId, characterId])
+}

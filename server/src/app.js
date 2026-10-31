@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from 'express'
 import cors from "cors";
+import { picturesRouter } from "./routes/picturesRouter.js";
+import { gamesRouter } from "./routes/gamesRouter.js";
 
 export const app = express()
 
@@ -9,6 +11,8 @@ app.use(cors({origin: process.env.CORS_ORIGINS.split(',')}))
 app.use(express.json())
 
 // Routes
+app.use("/pictures", picturesRouter)
+app.use("/games", gamesRouter)
 
 
 app.get('/', (req,res)=> {
