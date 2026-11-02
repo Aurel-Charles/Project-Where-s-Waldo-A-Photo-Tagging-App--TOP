@@ -7,7 +7,9 @@
     "test": "vitest",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:migrate:prod": "dotenv run -f .env.production -- prisma migrate deploy",
+    "db:seed:prod": "dotenv run -f .env.production -- prisma db seed"
   },
   "keywords": [],
   "author": "",
