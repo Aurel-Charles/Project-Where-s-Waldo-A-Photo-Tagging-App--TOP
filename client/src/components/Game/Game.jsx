@@ -5,6 +5,7 @@ import { InfoPanel } from "../InfoPanel/InfoPanel"
 import { EndScreen } from "../EndScreen/EndScreen"
 import { useParams } from "react-router"
 import style from "./Game.module.css"
+import { Loader } from "../Loader/Loader"
 
 export function Game() {
     const {pictureId} = useParams()
@@ -105,7 +106,9 @@ export function Game() {
                 {title && <h2 className={style.title}>{title}</h2>}
                 {error && <p className="error">{error.message}</p>}
 
-                {gameId === null ? (
+                {imgUrl === null && !error ? (
+                    <Loader text="Loading the scene… (the server may take a minute to wake up)" />
+                ) : gameId === null ? (
                     <div className={style.start}>
                         {imgUrl && <img className={style.preview} src={imgUrl} alt="" />}
                         <div className={style.startOverlay}>

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 import { apiFetch } from "../../utils/api"
 import { convertMsToMinSec } from "../../utils/convertMs"
 import style from "./PictureLeaderboard.module.css"
+import { Loader } from "../Loader/Loader"
 
 export function PictureLeaderboard({pictureId}) {
     const [leaderboard, setLeaderboard] = useState([])
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=> {
         async function getBoard() {
@@ -16,6 +18,8 @@ export function PictureLeaderboard({pictureId}) {
             } catch (error) {
                 console.error(error)
                 setError(error)
+            } finally {
+                setLoading(false)
             }
         }
         getBoard()
@@ -26,7 +30,9 @@ export function PictureLeaderboard({pictureId}) {
     return (
         <div>
             {error && <p className="error">{error.message}</p>}
-            {leaderboard.length > 0 ? (
+            {loading ? (
+                <Loader text="Loading…" />
+            ) : leaderboard.length > 0 ? (
                 <ol className={style.list}>
                     {leaderboard.map((game, index) => (
                         <li key={index} className={style.row}>

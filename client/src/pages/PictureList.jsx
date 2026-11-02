@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 import { apiFetch } from "../utils/api"
 import { Link } from "react-router"
 import style from "./PictureList.module.css"
+import { Loader } from "../components/Loader/Loader"
 
 export function PictureList() {
     const [pictures , setPictures] = useState([])
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=> {
         async function getPictures() {
@@ -16,6 +18,8 @@ export function PictureList() {
             } catch (error) {
                 console.error(error)
                 setError(error)
+            }finally{
+                setLoading(false)
             }
         }
         getPictures()
@@ -27,6 +31,9 @@ export function PictureList() {
         <section className={style.page}>
             <h2>Choose a scene</h2>
             {error && <p className="error">{error.message}</p>}
+            { loading ? 
+            <Loader/> 
+            :
             <ul className={style.grid}>
                 {pictures.map((p) => (
                     <li key={p.id} className={style.card}>
@@ -38,6 +45,7 @@ export function PictureList() {
                     </li>
                 ))}
             </ul>
+            }
         </section>
     )
 }

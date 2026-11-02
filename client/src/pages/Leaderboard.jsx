@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 import { apiFetch } from "../utils/api"
 import { PictureLeaderboard } from "../components/PictureLeaderboard/PictureLeaderboard"
 import style from "./Leaderboard.module.css"
+import { Loader } from "../components/Loader/Loader"
 
 export function Leaderboard() {
     const [pictures , setPictures] = useState([])
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(()=> {
@@ -17,6 +19,8 @@ export function Leaderboard() {
             } catch (error) {
                 console.error(error)
                 setError(error)
+            } finally {
+                setLoading(false)
             }
         }
         getPictures()
@@ -29,7 +33,9 @@ export function Leaderboard() {
             <p className={style.intro}>The ten fastest players for each scene.</p>
             {error && <p className="error">{error.message}</p>}
 
-            {pictures.length > 0 ? (
+            {loading ? (
+                <Loader text="Loading the scores…" />
+            ) : pictures.length > 0 ? (
                 <ul className={style.list}>
                     {pictures.map((p) => (
                         <li key={p.id} className={style.card}>
