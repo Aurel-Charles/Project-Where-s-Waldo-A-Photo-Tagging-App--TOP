@@ -1,0 +1,20 @@
+
+
+.marker{
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    border: solid rgb(0, 255, 30) 4px;
+    border-radius:100%;
+    transform: translate(-50%, -50%);
+}
+
+.name{
+    background-color: white;
+    border: black solid 1px;
+    display: none;
+}
+
+.marker:hover .name{
+    display:block;
+}

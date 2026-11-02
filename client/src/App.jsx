@@ -1,6 +1,6 @@
 import './App.css'
-import { GameImage } from './components/GameImage/GameImage'
 import level1 from './assets/level1.webp'
+import { Game } from './components/Game/Game'
 
 function App() {
   
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <h1> {import.meta.env.VITE_APP_TITLE}</h1>
-      <GameImage imgUrl={level1}/>
+      <Game pictureId={1} imgUrl={level1} />
     </>
   )
 }
