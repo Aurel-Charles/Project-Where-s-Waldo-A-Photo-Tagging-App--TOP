@@ -2,6 +2,11 @@ import { prisma } from "./prisma.js";
 
 
 // Pictures related Queries
+export async function getPictures() {
+    const pictures = await prisma.picture.findMany()
+    return pictures
+}
+
 export async function getPictureById(id) {
     const picture = await prisma.picture.findUnique({
         where : {

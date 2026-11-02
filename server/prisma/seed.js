@@ -11,7 +11,7 @@ async function main() {
     const image = await prisma.picture.create({
         data : {
             title : "The Beach",
-            url : "client/src/assets/level1.webp"
+            url : "/images/level1.webp"
         }
     })
 

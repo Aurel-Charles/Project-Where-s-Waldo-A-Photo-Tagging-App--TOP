@@ -1,4 +1,4 @@
-import { getCharactersByPictures, getLeaderBoardByPictureId, getPictureById } from "../db/queries.js";
+import { getCharactersByPictures, getLeaderBoardByPictureId, getPictureById, getPictures } from "../db/queries.js";
 import { HttpError } from "../utils/HttpErrorHandler.js";
 import { isInteger } from "../utils/isInteger.js";
 
@@ -19,5 +19,10 @@ export async function getLeaderBoard(req, res) {
         throw new HttpError("Picture not found", 404)
     }
     const leaderboard = await getLeaderBoardByPictureId(pictureId)
-    res.json(leaderboard)
+    res.json({leaderboard})
+}
+
+export async function getAllPictures(req, res) {
+    const pictures = await getPictures()
+    res.json({pictures})
 }
