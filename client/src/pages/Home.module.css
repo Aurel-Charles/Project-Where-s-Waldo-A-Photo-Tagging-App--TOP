@@ -1,0 +1,96 @@
+.home {
+  display: grid;
+  justify-items: center;
+  gap: 3rem;
+}
+
+.hero {
+  max-width: 44rem;
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2.2rem, 6vw, 3.75rem);
+  color: var(--red);
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.rules,
+.cast {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 44rem;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.steps p {
+  padding-top: 0.4rem;
+}
+
+.steps li::before {
+  content: counter(step);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.characters {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.75rem;
+}
+
+.characters li {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem 1rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--sky);
+}
+
+.characters strong {
+  color: var(--blue);
+  font-size: 1.05rem;
+}
+
+.characters span {
+  color: var(--muted);
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}

@@ -1,0 +1,52 @@
+.page {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.page > h2,
+.intro {
+  text-align: center;
+}
+
+.intro {
+  color: var(--muted);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 46rem;
+  margin-top: 0.5rem;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  padding: 0.85rem;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+
+.picture {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 4px);
+}
+
+.scores {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (max-width: 40rem) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+}

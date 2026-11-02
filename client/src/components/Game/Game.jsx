@@ -3,9 +3,16 @@ import { apiFetch } from "../../utils/api"
 import { GameImage } from "../GameImage/GameImage"
 import { InfoPanel } from "../InfoPanel/InfoPanel"
 import { EndScreen } from "../EndScreen/EndScreen"
+import { useParams } from "react-router"
+import style from "./Game.module.css"
 
-export function Game({pictureId, imgUrl}) {
+export function Game() {
+    const {pictureId} = useParams()
+
     const [characters , setCharacters] = useState(null)
+    const [imgUrl , setImgUrl] = useState(null)
+    const [title , setTitle] = useState("")
+
     const [gameId , setGameId] = useState(null)
     const [loadingGame , setLoadingGame] = useState(false)
     const [found, setFound] = useState([])
@@ -16,8 +23,16 @@ export function Game({pictureId, imgUrl}) {
     useEffect(()=> {
         async function getCharacters() {
             try {
-                const data = await apiFetch(`/pictures/${pictureId}/characters`)
-                setCharacters(data.characters)
+                const data = await apiFetch(`/pictures`)
+                const picture = data.pictures.find((p)=> p.id === Number(pictureId))
+                if (!picture) {
+                    setError(new Error("Picture not found"))
+                    return
+                  }
+                setImgUrl(picture.url)
+                setTitle(picture.title)
+                const characterPos = await apiFetch(`/pictures/${pictureId}/characters`)
+                setCharacters(characterPos.characters)
             } catch (error) {
                 console.error(error)
                 setError(error)
@@ -34,7 +49,6 @@ export function Game({pictureId, imgUrl}) {
             try {
                 setLoadingGame(true)
                 const data = await apiFetch(`/games`, "POST", {pictureId})
-                console.log(data);
                 setGameId(data.id)
             } catch (error) {
                 console.error(error)
@@ -49,13 +63,12 @@ export function Game({pictureId, imgUrl}) {
     function handleGuess(characterId, coor) {
         const body = {
             characterId,
-            x : coor.x, 
+            x : coor.x,
             y : coor.y
         }
         async function checkGuess() {
             try {
                 const data = await apiFetch(`/games/${gameId}/guesses`, "POST", body)
-                console.log(data);
 
                 if (data.correct && !data.alreadyFound) {
                     setFound( (prev) => [...prev, data.character])
@@ -81,28 +94,41 @@ export function Game({pictureId, imgUrl}) {
             setEndGame(gameEnded)
             setMessage(`Congratulation! You found them all`)
         }
-        else if (!gameEnded  ) {
+        else {
             setMessage(`Good! you found ${name}`)
         }
-        
-    } 
+    }
 
-    console.log(endGame);
-    
     return (
-        <>
-        {error && <p> {error.message} </p>}
+        <section className={style.game}>
+            <div className={style.board}>
+                {title && <h2 className={style.title}>{title}</h2>}
+                {error && <p className="error">{error.message}</p>}
 
-        <InfoPanel characters={characters} found={found} message={message} />
-        {gameId === null ? 
-            <button disabled={loadingGame || characters === null} onClick={ ()=> handleStart(pictureId) } >START</button> 
-            :
-            <GameImage imgUrl={imgUrl} characters={characters} onGuess={handleGuess} found={found} disabled={endGame !== null}/>
-        }
+                {gameId === null ? (
+                    <div className={style.start}>
+                        {imgUrl && <img className={style.preview} src={imgUrl} alt="" />}
+                        <div className={style.startOverlay}>
+                            <p>The timer starts as soon as you press Start.</p>
+                            <button
+                                className="btn"
+                                disabled={loadingGame || characters === null || imgUrl === null}
+                                onClick={ ()=> handleStart(pictureId) }
+                            >
+                                {loadingGame ? "Starting…" : "Start"}
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <GameImage imgUrl={imgUrl} characters={characters} onGuess={handleGuess} found={found} disabled={endGame !== null}/>
+                )}
+            </div>
 
-        {endGame !== null && 
-            <EndScreen endGame={endGame}/>
-        }
-        </>
+            <InfoPanel characters={characters} found={found} message={message} />
+
+            {endGame !== null &&
+                <EndScreen endGame={endGame}/>
+            }
+        </section>
     )
 }

@@ -16,22 +16,17 @@ export function GameImage({imgUrl, characters, onGuess, found, disabled}) {
         }
         const rect = e.currentTarget.getBoundingClientRect();
         const coor = getXYCoor(rect, e.clientX, e.clientY)
-        console.log(coor);
-        
         setTarget(coor)
     }
 
     function handleCharacterSelect(characterId) {
-        // console.log(characters.find(c => c.id === characterId));
-        // check the character position
-
         onGuess(characterId, target)
         setTarget(null)
     }
 
     return (
-        <div className={styles.imageBox}>
-            <img src={imgUrl} alt="" className={styles.image} onClick={handleClick} />
+        <div className={`${styles.imageBox} ${disabled ? styles.finished : ""}`}>
+            <img src={imgUrl} alt="Crowded scene to search" className={styles.image} onClick={handleClick} />
             {target !== null && <div className={styles.box} style={{left : `${target.x}%`, top : `${target.y}%`}} ></div> }
             {target !== null && <TargetBox target={target} characters={characters} onCharacterSelect={handleCharacterSelect}/> }
             {found.map((c)=> (

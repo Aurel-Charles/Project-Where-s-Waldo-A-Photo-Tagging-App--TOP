@@ -1,20 +1,26 @@
-
-
-.marker{
-    position: absolute;
-    width: 5%;
-    height: 5%;
-    border: solid rgb(0, 255, 30) 4px;
-    border-radius:100%;
-    transform: translate(-50%, -50%);
+.marker {
+  position: absolute;
+  z-index: 1;
+  width: 5%;
+  aspect-ratio: 1;
+  border: 4px solid var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--paper), inset 0 0 0 2px var(--paper);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
-.name{
-    background-color: white;
-    border: black solid 1px;
-    display: none;
-}
-
-.marker:hover .name{
-    display:block;
+/* The name sits just under the ring, so the player sees who was found */
+.name {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--green);
+  color: var(--paper);
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
 }

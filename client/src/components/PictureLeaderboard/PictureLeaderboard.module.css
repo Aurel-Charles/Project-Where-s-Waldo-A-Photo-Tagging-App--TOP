@@ -1,0 +1,44 @@
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  max-width: 24rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.25rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.rank {
+  font-family: var(--font-display);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Top three get the red stripe colour */
+.row:nth-child(-n + 3) .rank {
+  color: var(--red);
+}
+
+.player {
+  font-weight: 700;
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.empty {
+  color: var(--muted);
+}

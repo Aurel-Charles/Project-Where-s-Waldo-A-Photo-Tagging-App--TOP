@@ -1,15 +1,27 @@
-.imageBox{
-    position:relative;
+.imageBox {
+  position: relative;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 
-.image{
-    width: 100%;
+.image {
+  width: 100%;
+  cursor: crosshair;
 }
 
-.box{
-    position: absolute;
-    width: 4%;
-    height: 4%;
-    border: solid red 3px;
-    transform: translate(-50%, -50%);
+.finished .image {
+  cursor: default;
+}
+
+.box {
+  position: absolute;
+  width: 4%;
+  height: 4%;
+  border: 3px dashed var(--red);
+  border-radius: 4px;
+  background: rgb(213 43 30 / 0.12);
+  box-shadow: 0 0 0 2px var(--paper);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }

@@ -14,6 +14,12 @@ async function main() {
             url : "/images/level1.webp"
         }
     })
+    const image2 = await prisma.picture.create({
+        data : {
+            title : "Tribal Battle",
+            url : "/images/level2.webp"
+        }
+    })
 
     const waldo = await prisma.character.create({
         data : {name : "Waldo"}
@@ -23,6 +29,9 @@ async function main() {
     })
     const wizardWhitebeard = await prisma.character.create({
         data : {name : "Wizard Whitebeard"}
+    })
+    const wenda = await prisma.character.create({
+        data : {name : "Wenda"}
     })
 
     const waldoPosition = await prisma.characterPosition.create({
@@ -49,6 +58,43 @@ async function main() {
             characterId : wizardWhitebeard.id,
             x: 62.54,
             y: 48.56
+        }
+    })
+
+    // Level 2 : Tribal Battle (same characters, different positions)
+    await prisma.characterPosition.create({
+        data : {
+            pictureId : image2.id,
+            characterId : waldo.id,
+            x: 96.0,
+            y: 6.9
+        }
+    })
+
+    await prisma.characterPosition.create({
+        data : {
+            pictureId : image2.id,
+            characterId : wizardWhitebeard.id,
+            x: 29.5,
+            y: 42.6
+        }
+    })
+
+    await prisma.characterPosition.create({
+        data : {
+            pictureId : image2.id,
+            characterId : odlaw.id,
+            x: 91.9,
+            y: 59.1
+        }
+    })
+
+    await prisma.characterPosition.create({
+        data : {
+            pictureId : image2.id,
+            characterId : wenda.id,
+            x: 28.1,
+            y: 66.3
         }
     })
 }

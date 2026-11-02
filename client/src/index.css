@@ -52,3 +52,114 @@ h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Waldo's colours: red-and-white sweater, blue jeans.
+------------------------------------------------------------------- */
+:root {
+  --red: #d52b1e;
+  --red-dark: #a81e14;
+  --blue: #1c3f94;
+  --sky: #eaf2fc;
+  --ink: #1b1d2a;
+  --muted: #5b6070;
+  --line: #d5dce8;
+  --paper: #ffffff;
+  --green: #23965a;
+
+  --font-display: "Lilita One", "Arial Rounded MT Bold", sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+
+  /* The sweater stripe, used in a few places */
+  --stripes: repeating-linear-gradient(
+    -45deg,
+    var(--red) 0 12px,
+    var(--paper) 12px 24px
+  );
+
+  --radius: 10px;
+  --page-width: 1200px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--blue);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: 1.25rem; }
+
+a {
+  color: var(--blue);
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------
+   Buttons (global classes: use className="btn" or "btn btn-secondary")
+------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.btn:hover {
+  background: var(--red-dark);
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.btn:disabled {
+  background: var(--line);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--paper);
+  color: var(--blue);
+}
+
+.btn-secondary:hover {
+  background: var(--sky);
+}
+
+.error {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--red);
+  background: #fdecea;
+  color: var(--red-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
